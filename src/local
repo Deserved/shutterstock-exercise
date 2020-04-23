@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+EVENT_JSON_PATH="${DIR}/event.json"
+ENV_JSON_PATH="${DIR}/env.json"
+FUNCTION_FILE_PATH="${DIR}/application/function.py"
+
+type python-lambda-local >/dev/null 2>&1 || {
+    echo >&2 "python-lambda-local is not install. Please install e.g. 'sudo pip install python-lambda-local'.";
+    exit 1;
+}
+
+if [[ ! -f "${ENV_JSON_PATH}" ]]; then
+    echo "env.json is not generate. Run terragrunt to generate file."
+    exit 1;
+fi
+
+INSTANCE_ID=${1}
+
+if [[ -z ${INSTANCE_ID} ]]; then
+    echo '{ "pathParameters" : null }' > "${EVENT_JSON_PATH}"
+
+else
+    echo '{ "pathParameters" : { "InstanceId" : "'"${INSTANCE_ID}"'" } }' > "${EVENT_JSON_PATH}"
+fi
+
+python-lambda-local -f handler --environment-variables "${ENV_JSON_PATH}" "${FUNCTION_FILE_PATH}" "${EVENT_JSON_PATH}"

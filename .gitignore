@@ -1,0 +1,5 @@
+.idea
+.terragrunt-cache
+function.zip
+src/event.json
+src/env.json
