@@ -55,15 +55,14 @@ Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
 
 Outputs:
 
-api_url = https://lir0yw64x0.execute-api.eu-west-1.amazonaws.com/api/instances
+example = 
+
+You can try these API calls:
+curl -i https://w284t7jmh3.execute-api.eu-west-1.amazonaws.com/api/instances
+curl -i https://w284t7jmh3.execute-api.eu-west-1.amazonaws.com/api/instances/i-00b7fb83a362506ef
 ```
 
-Use the output API URL to do REST calls as in example above:
-```bash
-curl -i https://lir0yw64x0.execute-api.eu-west-1.amazonaws.com/api/instances
-curl -i https://lir0yw64x0.execute-api.eu-west-1.amazonaws.com/api/instances/i-00b7fb83a362506ef
-```
-Keep in mind that URL above is used for example purpose.
+Copy paste the commands from output **IN YOUR CLI, NOT FROM EXAMPLE ABOVE**
 
 (Sometimes it can take sometime for API Gateway to start work)
 If result is found HTTP Status code is 200, otherwise 204 with no content.
